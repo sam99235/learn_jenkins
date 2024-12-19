@@ -1,14 +1,14 @@
 pipeline {
     agent any
 
-    environment {
-        COMPOSE_FILE = "compose.yml"
-        //trivy , docker , docker-compose
-        //question i still need in which env this pipeline will be executed in 
-        //answer since it's running this pipeline in my local machine so ir's already pre-installed
-        //with *docker
+    // environment {
+    //     COMPOSE_FILE = "compose.yml"
+    //     //trivy , docker , docker-compose
+    //     //question i still need in which env this pipeline will be executed in 
+    //     //answer since it's running this pipeline in my local machine so ir's already pre-installed
+    //     //with *docker
         
-    }
+    // }
 
     stages {
         stage('Clone Repository') {
