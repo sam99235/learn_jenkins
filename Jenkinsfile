@@ -28,8 +28,11 @@ pipeline {
                 // Start the services using Docker Compose
                 echo "==========building and running the containers======="
                 //bat 'cd todo-list-app' error
-                bat 'echo %cd%'
+                bat 'cd'
+                bat 'echo %cd%' // get cwd
                 bat 'docker-compose up -d'
+                echo '==>last command exit-code  %ERRORLEVEL%'
+
             }
         }
 
