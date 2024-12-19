@@ -35,17 +35,17 @@ pipeline {
             }
         }
 
-        // stage('Scan Containers with Trivy') {
-        //     steps {
-        //         // Scan the running containers with Trivy
-        //         script {
-        //             def services = ['app', 'mysql'] // Define the services to scan
-        //             for (service in services) {
-        //                 sh "trivy image $(docker-compose images ${service} -q) onvert --format table --severity CRITICAL,HIGH output.json"
-        //            }
-        //         }
-        //     }
-        // }
+        stage('Scan Containers with Trivy') {
+            steps {
+                // Scan the running containers with Trivy
+                script {
+                    def services = ['app', 'mysql'] // Define the services to scan
+                    for (service in services) {
+                        sh "trivy image $(docker-compose images ${service} -q) onvert --format table --severity CRITICAL,HIGH output.json"
+                   }
+                }
+            }
+        }
     }
     post {
         always {
@@ -59,14 +59,5 @@ pipeline {
             }
         }
     } 
-    // post{
-    //     always {
-    //         echo 'Cleaning  up my workspace...'
-    //         // Remove all files in the workspace
-    //         script {
-    //                 bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
-    //         }
-    //     }
-    // }
 
 }
