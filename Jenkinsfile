@@ -16,6 +16,9 @@ pipeline {
                 script {
                     echo 'Checking out code...'
                     git url: 'https://github.com/sam99235/learn_jenkins.git', branch: "main"
+                    
+                    //force building now 
+                    //checkout scm: [$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], userRemoteConfigs: [[url: 'https://github.com/your-repo.git']]]                
                 }
             }
         }
@@ -46,7 +49,6 @@ pipeline {
             // Clean up Docker Compose services after the pipeline
             sh 'docker-compose down'
         }
-    }
         always {
             echo 'Cleaning  up my workspace...'
             // Remove all files in the workspace
@@ -54,5 +56,6 @@ pipeline {
                     bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
             }
         }
+    }
 
 }
