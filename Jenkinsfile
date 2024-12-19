@@ -14,7 +14,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 script {
-                    echo 'Checking out code...'
+                    echo '===========Checking out code================='
                     git url: 'https://github.com/sam99235/learn_jenkins.git', branch: "main"
                     
                     //force building now 
@@ -26,8 +26,9 @@ pipeline {
         stage('Run Containers with Docker Compose') {
             steps {
                 // Start the services using Docker Compose
-                echo "===building and running the containers"
-                bat 'cd todo-list-app'
+                echo "==========building and running the containers======="
+                //bat 'cd todo-list-app' error
+                bat 'echo %cd%'
                 bat 'docker-compose up -d'
             }
         }
