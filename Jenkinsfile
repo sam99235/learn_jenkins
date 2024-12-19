@@ -3,23 +3,26 @@ pipeline {
 
     environment {
         COMPOSE_FILE = "compose.yml"
-        //i still need in which env this pipeline will be executed in 
         //trivy , docker , docker-compose
+        //question i still need in which env this pipeline will be executed in 
+        //answer since it's running this pipeline in my local machine so ir's already pre-installed
+        //with *docker
+        
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                // Clone the Akaunting repository
-                git branch: 'main', url: 'https://github.com/dockersamples/todo-list-app.git'
+                echo 'Checking out code...'
+                checkout scm
             }
         }
 
         stage('Run Containers with Docker Compose') {
             steps {
                 // Start the services using Docker Compose
-                sh 'cd todo-list-app'
-                sh 'docker-compose up -d'
+                bat 'cd todo-list-app'
+                bat 'docker-compose up -d'
             }
         }
 
@@ -41,4 +44,12 @@ pipeline {
             sh 'docker-compose down'
         }
     }
+        always {
+            echo 'Cleaning  up my workspace...'
+            // Remove all files in the workspace
+            script {
+                    bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
+            }
+        }
+
 }
