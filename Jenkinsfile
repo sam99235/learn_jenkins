@@ -27,9 +27,7 @@ pipeline {
             steps {
                 // Start the services using Docker Compose
                 echo "==========building and running the containers======="
-                //bat 'cd todo-list-app' error
-                bat 'echo cwd %cd%' // get cwd
-                //bat  bat 'cd learn_jenkins'
+                bat 'cd learn_jenkins'
                 bat 'docker-compose up -d'
                 echo '==>last command exit-code  %ERRORLEVEL%'
 
