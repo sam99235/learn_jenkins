@@ -41,7 +41,7 @@ pipeline {
                 script {
                     def services = ['app', 'mysql'] // Define the services to scan
                     for (service in services) {
-                        bat "trivy image $(docker-compose images ${service} -q)" //convert --format table --severity CRITICAL,HIGH output.json"
+                        bat "trivy image \$(docker-compose images ${service} -q)" //convert --format table --severity CRITICAL,HIGH output.json"
                    }
                 }
             }
