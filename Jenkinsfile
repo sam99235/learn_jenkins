@@ -47,15 +47,20 @@ pipeline {
     post {
         always {
             // Clean up Docker Compose services after the pipeline
-            sh 'docker-compose down'
-        }
-        always {
-            echo 'Cleaning  up my workspace...'
-            // Remove all files in the workspace
             script {
-                    bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
+                bat 'docker-compose down'
+                bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
             }
         }
-    }
+    } 
+    // post{
+    //     always {
+    //         echo 'Cleaning  up my workspace...'
+    //         // Remove all files in the workspace
+    //         script {
+    //                 bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
+    //         }
+    //     }
+    // }
 
 }
