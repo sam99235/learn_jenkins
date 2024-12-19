@@ -14,13 +14,14 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 echo 'Checking out code...'
-                checkout scm
+                git branch: "main", url: 'https://github.com/sam99235/learn_jenkins.git'
             }
         }
 
         stage('Run Containers with Docker Compose') {
             steps {
                 // Start the services using Docker Compose
+                echo "===building and running the containers"
                 bat 'cd todo-list-app'
                 bat 'docker-compose up -d'
             }
