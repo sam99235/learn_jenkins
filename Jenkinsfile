@@ -28,7 +28,7 @@ pipeline {
                 // Start the services using Docker Compose
                 echo "==========building and running the containers======="
                 bat 'docker-compose up -d'
-                echo 'exit-code %ERRORLEVEL%'
+                echo 'exit-code1: %ERRORLEVEL%'
 
             }
         }
@@ -50,6 +50,7 @@ pipeline {
             // Clean up Docker Compose services after the pipeline
             script {
                 bat 'docker-compose down'
+                echo 'exit-code2: %ERRORLEVEL%'
                 bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
             }
         }
