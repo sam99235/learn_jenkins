@@ -48,7 +48,7 @@ pipeline {
         always {
             // Clean up Docker Compose services after the pipeline
             script {
-                bat 'docker-compose down'
+                bat 'docker-compose down ..'
                 bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
             }
         }
