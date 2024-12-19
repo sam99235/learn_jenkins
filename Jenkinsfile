@@ -14,7 +14,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 echo 'Checking out code...'
-                git branch: "main", url: 'https://github.com/sam99235/learn_jenkins.git'
+                git url: 'https://github.com/sam99235/learn_jenkins.git', branch: "main"
             }
         }
 
