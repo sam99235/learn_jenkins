@@ -39,7 +39,7 @@ pipeline {
         //             def services = ['app', 'mysql'] // Define the services to scan
         //             for (service in services) {
         //                 sh "trivy image $(docker-compose images ${service} -q) onvert --format table --severity CRITICAL,HIGH output.json"
-        //             }
+        //            }
         //         }
         //     }
         // }
