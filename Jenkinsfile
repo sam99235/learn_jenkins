@@ -27,9 +27,8 @@ pipeline {
             steps {
                 // Start the services using Docker Compose
                 echo "==========building and running the containers======="
-                bat 'cd learn_jenkins'
                 bat 'docker-compose up -d'
-                echo '==>last command exit-code  %ERRORLEVEL%'
+                echo 'exit-code %ERRORLEVEL%'
 
             }
         }
@@ -51,7 +50,7 @@ pipeline {
             // Clean up Docker Compose services after the pipeline
             script {
                 bat 'docker-compose down'
-                //bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
+                bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
             }
         }
     } 
