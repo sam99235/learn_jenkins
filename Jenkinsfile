@@ -13,8 +13,10 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
+                script{
                 echo 'Checking out code...'
                 git url: 'https://github.com/sam99235/learn_jenkins.git', branch: "main"
+                }
             }
         }
 
