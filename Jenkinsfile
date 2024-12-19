@@ -18,7 +18,6 @@ pipeline {
                 git url: 'https://github.com/sam99235/learn_jenkins.git', branch: "main"
                 }
             }
-        }
 
         stage('Run Containers with Docker Compose') {
             steps {
