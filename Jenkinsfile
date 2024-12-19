@@ -29,7 +29,8 @@ pipeline {
                 echo "==========building and running the containers======="
                 //bat 'cd todo-list-app' error
                 bat 'cd'
-                bat 'echo %cd%' // get cwd
+                bat 'echo cwd %cd%' // get cwd
+                //bat  bat 'cd learn_jenkins'
                 bat 'docker-compose up -d'
                 echo '==>last command exit-code  %ERRORLEVEL%'
 
