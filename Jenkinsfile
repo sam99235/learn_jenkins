@@ -27,7 +27,7 @@ pipeline {
             steps {
                 // Start the services using Docker Compose
                 echo "==========building and running the containers======="
-                bat 'cwd %cd%'
+                bat 'echo %cd%'
                 bat 'IF EXIST compose.yml echo FOUND'
                 bat 'docker-compose up -d'
                 echo 'exit-code1: %ERRORLEVEL%'
