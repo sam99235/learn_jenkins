@@ -53,7 +53,8 @@ pipeline {
             script {
                 bat 'docker-compose down'
                 echo 'exit-code2: %ERRORLEVEL%'
-                bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
+                //cleaning up the workspace
+                bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q && del /s /f /p .git'
             }
         }
     } 
