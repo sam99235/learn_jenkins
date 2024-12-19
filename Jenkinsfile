@@ -51,8 +51,6 @@ pipeline {
         always {
             // Clean up Docker Compose services after the pipeline
             script {
-                //running docker deamon
-                bat 'C:\Program Files\Docker\Docker\resources\dockerd.exe'
                 bat 'docker-compose down'
                 echo 'exit-code2: %ERRORLEVEL%'
                 //cleaning up the workspace
