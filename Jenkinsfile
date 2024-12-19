@@ -46,7 +46,7 @@ pipeline {
                 }
             }
         }
-    }
+
     post {
         always {
             // Clean up Docker Compose services after the pipeline
