@@ -11,7 +11,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 // Clone the Akaunting repository
-                git branch: 'master', url: 'https://github.com/dockersamples/todo-list-app.git'
+                git branch: 'main', url: 'https://github.com/dockersamples/todo-list-app.git'
             }
         }
 
