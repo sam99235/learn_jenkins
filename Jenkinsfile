@@ -52,10 +52,10 @@ pipeline {
                             echo "Scanning image for service: ${service} ${imageId_trimmed}"
                             
                             // this line below works 
-                            // def scanResult = bat(script: "trivy image --light --severity CRITICAL,HIGH ${imageId_trimmed}", returnStdout: true)
+                            def scanResult = bat(script: "trivy image --light --severity CRITICAL,HIGH ${imageId_trimmed}", returnStdout: true)
                             // echo "Scan result for ${service}: ${scanResult}"
                             // Run Trivy scan for the image
-                            bat 'trivy -q image --light --severity CRITICAL,HIGH --format json -o D:\Desktop\${service}_scan_report.json ${imageId}'
+                            // bat 'trivy -q image --light --severity CRITICAL,HIGH --format json -o D:\Desktop\${service}_scan_report.json ${imageId}'
                             // bat 'trivy -q image --light --severity CRITICAL,HIGH --format json -o ${service}_scan_report.json ${imageId}'
                         } else {
                             echo "No image found for service: ${service}"
