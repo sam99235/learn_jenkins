@@ -50,8 +50,10 @@ pipeline {
             script {
                 bat 'docker-compose down'
                 echo 'exit-code2: %ERRORLEVEL%'
-                //cleaning up the workspace
+                echo "=============cleaning up the workspace==============="
                 bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
+                echo "=============removing teh .git folder==============="
+                bat 'rmdir /s /q .git'
                 bat 'cd /d C:\Users\Jenkins\AppData\Local\Jenkins\.jenkins\workspace'
                 bat 'cd'
                 //remove the hidden .git folder
