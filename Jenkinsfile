@@ -31,22 +31,53 @@ pipeline {
 
             }
         }
-
         stage('Scan Containers with Trivy') {
             steps {
                 script {
                     echo "==========Scanning the running containers======="
+                    
+                    // Display Trivy version
                     bat 'trivy --version'
-                    def services = ['app', 'mysql'] // defined services
+                    
+                    // List of services to scan
+                    def services = ['app', 'mysql']
+                    
+                    // Loop through services to scan each container
                     for (service in services) {
-                        // current issue is here
-                        bat 'trivy image $(docker-compose images ${service} -q)' //convert --format table --severity CRITICAL,HIGH output.json"
-                        echo  'exit-code3   %ERRORLEVEL%'
-                   
-                   }
+                        // Retrieve the image ID using docker-compose and store it in a variable
+                        def imageId = bat(script: "docker-compose images ${service} -q", returnStdout: true).trim()
+
+                        if (imageId) {
+                            echo "Scanning image for service: ${service} (${imageId})"
+                            
+                            // Run Trivy scan for the image
+                            bat """
+                                trivy image --severity CRITICAL,HIGH \
+                                --format json \
+                                -o ${service}_scan_report.json ${imageId}
+                            """
+                        } else {
+                            echo "No image found for service: ${service}"
+                        }
+                    }
                 }
             }
         }
+        // stage('Scan Containers with Trivy') {
+        //     steps {
+        //         script {
+        //             echo "==========Scanning the running containers======="
+        //             bat 'trivy --version'
+        //             def services = ['app', 'mysql'] // defined services
+        //             for (service in services) {
+        //                 // current issue is here
+        //                 bat 'trivy image $(docker-compose images ${service} -q)' //convert --format table --severity CRITICAL,HIGH output.json"
+        //            }
+        //             echo  'exit-code3   %ERRORLEVEL%'
+
+        //         }
+        //     }
+        // }
     }
     post {
         always {
