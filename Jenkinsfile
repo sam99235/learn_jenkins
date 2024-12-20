@@ -1,11 +1,11 @@
 pipeline {
     agent any
 
-    environment {
-        // TRIVY_ = !TRIVY
-    //     //trivy , docker , docker-compose
+    // environment {
+    //     // TRIVY_ = !TRIVY
+    // //     //trivy , docker , docker-compose
 
-    }
+    // }
 
     stages {
         stage('Clone Repository') {
