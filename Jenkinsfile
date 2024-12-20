@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     // environment {
-    //     // TRIVY_ = !TRIVY
+    //     // TRIVY = TRIVY_EXE
     // //     //trivy , docker , docker-compose
 
     // }
@@ -25,9 +25,9 @@ pipeline {
                 // Start the services using Docker Compose
                 echo "==========building and running the containers======="
                 bat 'echo %cd%'
-                bat 'IF EXIST docker-compose.yml echo FOUND'
+                bat '=====LOG====IF EXIST docker-compose.yml echo FOUND'
                 bat 'docker-compose up -d'
-                echo 'exit-code1: %ERRORLEVEL%'
+                echo '=====LOG====exit-code1: %ERRORLEVEL%'
 
             }
         }
@@ -36,10 +36,12 @@ pipeline {
             steps {
                 echo "==========Scanning the running containers======="
                 script {
-                    def services = ['app', 'mysql'] // Define the services to scan
-                    for (service in services) {
-                        bat "trivy image \$(docker-compose images ${service} -q)" //convert --format table --severity CRITICAL,HIGH output.json"
-                   }
+                    bat 'trivy --version'
+                    bat '"C:\\Program Files\\trivy\\trivy.exe --version"'
+                //     def services = ['app', 'mysql'] // Define the services to scan
+                //     for (service in services) {
+                //         bat "trivy image \$(docker-compose images ${service} -q)" //convert --format table --severity CRITICAL,HIGH output.json"
+                //    }
                 }
             }
         }
@@ -49,16 +51,11 @@ pipeline {
             // Clean up Docker Compose services after the pipeline
             script {
                 bat 'docker-compose down'
-                echo 'exit-code2: %ERRORLEVEL%'
+                echo '=====LOG====docker-compose-exit-code2: %ERRORLEVEL%'
                 echo "=============cleaning up the workspace==============="
                 bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
                 echo "=============removing teh .git folder==============="
                 bat 'rmdir /s /q .git'
-                bat 'cd /d "C:\\Users\\Jenkins\\AppData\\Local\\Jenkins\\.jenkins\\workspace"'
-                bat 'cd'
-                //remove the hidden .git folder
-                //&& del /q /s .git\* && rmdir /s /q .git
-                // or cd .. del /s /q todo_app
             }
         }
     } 
