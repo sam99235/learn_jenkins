@@ -25,7 +25,7 @@ pipeline {
                 // Start the services using Docker Compose
                 echo "==========building and running the containers======="
                 bat 'echo %cd%'
-                bat '=====LOG====IF EXIST docker-compose.yml echo FOUND'
+                bat 'IF EXIST docker-compose.yml echo FOUND'
                 bat 'docker-compose up -d'
                 echo '=====LOG====exit-code1: %ERRORLEVEL%'
 
@@ -34,10 +34,10 @@ pipeline {
 
         stage('Scan Containers with Trivy') {
             steps {
-                echo "==========Scanning the running containers======="
                 script {
+                    echo "==========Scanning the running containers======="
                     bat 'trivy --version'
-                    bat '"C:\\Program Files\\trivy\\trivy.exe --version"'
+                    // bat '"C:\\Program Files\\trivy\\trivy.exe --version"'
                 //     def services = ['app', 'mysql'] // Define the services to scan
                 //     for (service in services) {
                 //         bat "trivy image \$(docker-compose images ${service} -q)" //convert --format table --severity CRITICAL,HIGH output.json"
