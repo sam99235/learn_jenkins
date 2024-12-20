@@ -52,7 +52,7 @@ pipeline {
                             
                             // Run Trivy scan for the image
                             // bat 'trivy -q image --light --severity CRITICAL,HIGH --format json -o ${service}_scan_report.json ${imageId}'
-                            bat 'trivy -q image --light --severity CRITICAL,HIGH --format json -o "${service}_scan_report.json" "${imageId}"'
+                            bat 'trivy -q image --light --severity CRITICAL,HIGH --format json -o ${service}_scan_report.json ${imageId}'
                         } else {
                             echo 'No image found for service: ${service}'
                         }
