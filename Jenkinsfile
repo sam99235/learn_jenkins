@@ -35,10 +35,11 @@ pipeline {
         stage('Scan Containers with Trivy') {
             steps {
                 echo "==========building and running the containers======="
+                echo "Trivy Executable Path: ${env.TRIVY_EXE}"
                 script {
                     def services = ['app', 'mysql'] // Define the services to scan
                     for (service in services) {
-                        bat "trivy image \$(docker-compose images ${service} -q)" //convert --format table --severity CRITICAL,HIGH output.json"
+                        bat "\${env.TRIVY_EXE} image \$(docker-compose images ${service} -q)" //convert --format table --severity CRITICAL,HIGH output.json"
                    }
                 }
             }
