@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     echo "==========Scanning the running containers======="
-                    bat '=========== && trivy --version'
+                    bat 'trivy --version'
                     def services = ['app', 'mysql'] // Define the services to scan
                     for (service in services) {
                         bat "trivy image \$(docker-compose images ${service} -q)" //convert --format table --severity CRITICAL,HIGH output.json"
