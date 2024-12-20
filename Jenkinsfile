@@ -1,14 +1,11 @@
 pipeline {
     agent any
 
-    // environment {
-    //     COMPOSE_FILE = "compose.yml"
+    environment {
+        TRIVY_ = !TRIVY
     //     //trivy , docker , docker-compose
-    //     //question i still need in which env this pipeline will be executed in 
-    //     //answer since it's running this pipeline in my local machine so ir's already pre-installed
-    //     //with *docker
-        
-    // }
+
+    }
 
     stages {
         stage('Clone Repository') {
@@ -37,7 +34,7 @@ pipeline {
 
         stage('Scan Containers with Trivy') {
             steps {
-                // Scan the running containers with Trivy
+                echo "==========building and running the containers======="
                 script {
                     def services = ['app', 'mysql'] // Define the services to scan
                     for (service in services) {
@@ -56,6 +53,7 @@ pipeline {
                 //cleaning up the workspace
                 bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
                 //&& del /q /s .git\* && rmdir /s /q .git
+                // or cd .. del /s /q todo_app
             }
         }
     } 
