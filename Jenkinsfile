@@ -36,7 +36,7 @@ pipeline {
             steps {
                 echo "==========building and running the containers======="
                 echo "Trivy Executable Path: ${env.TRIVY_EXE}"
-                echo "%TRIVY_EXE%"
+                echo "====>>${%TRIVY_EXE%}"
                 script {
                     def services = ['app', 'mysql'] // Define the services to scan
                     for (service in services) {
@@ -54,6 +54,9 @@ pipeline {
                 echo 'exit-code2: %ERRORLEVEL%'
                 //cleaning up the workspace
                 bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
+                bat 'cd ..'
+                bat 'cd'
+                //remove the hidden .git folder
                 //&& del /q /s .git\* && rmdir /s /q .git
                 // or cd .. del /s /q todo_app
             }
