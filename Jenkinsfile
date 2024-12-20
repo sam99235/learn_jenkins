@@ -37,9 +37,12 @@ pipeline {
                 script {
                     echo "==========Scanning the running containers======="
                     bat 'trivy --version'
-                    def services = ['app', 'mysql'] // Define the services to scan
+                    def services = ['app', 'mysql'] // defined services
                     for (service in services) {
-                        bat "trivy image \$(docker-compose images ${service} -q)" //convert --format table --severity CRITICAL,HIGH output.json"
+                        // current issue is here
+                        bat 'trivy image $(docker-compose images ${service} -q)' //convert --format table --severity CRITICAL,HIGH output.json"
+                        echo  'exit-code3   %ERRORLEVEL%'
+                   
                    }
                 }
             }
@@ -53,7 +56,7 @@ pipeline {
                 echo '=====LOG====docker-compose-exit-code2: %ERRORLEVEL%'
                 echo "=============cleaning up the workspace==============="
                 bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
-                echo "=============removing teh .git folder==============="
+                echo "=============removing the .git folder==============="
                 bat 'rmdir /s /q .git'
             }
         }
