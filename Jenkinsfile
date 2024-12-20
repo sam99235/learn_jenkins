@@ -54,7 +54,7 @@ pipeline {
                 bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
                 echo "=============removing teh .git folder==============="
                 bat 'rmdir /s /q .git'
-                bat 'cd /d "C:\Users\Jenkins\AppData\Local\Jenkins\.jenkins\workspace"'
+                bat 'cd /d "C:\\Users\\Jenkins\\AppData\\Local\\Jenkins\\.jenkins\\workspace"'
                 bat 'cd'
                 //remove the hidden .git folder
                 //&& del /q /s .git\* && rmdir /s /q .git
