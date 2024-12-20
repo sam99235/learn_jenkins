@@ -45,8 +45,13 @@ pipeline {
                     // Loop through services to scan each container
                     for (service in services) {
                         // Retrieve the image ID using docker-compose and store it in a variable
-                        def imageId = bat(script: "docker-compose images ${service} -q", returnStdout: true) //.trim()
-                        println '${imageId}'
+                        def imageId = bat(script: "docker-compose images ${service} -q", returnStdout: true).trim()
+                        bat(script: """
+                            @echo off
+                            set IMAGE_ID=${imageId}
+                            echo Image ID in batch script: %IMAGE_ID%
+                            """)
+
                         // if (imageId) {
                         //     echo 'Scanning image for service: ${service} ${imageId}'
                         //     def scanResult = bat(script: "trivy image --light --severity CRITICAL,HIGH ${imageId}", returnStdout: true).trim()
