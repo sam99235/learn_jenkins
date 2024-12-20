@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        TRIVY_ = !TRIVY
+        // TRIVY_ = !TRIVY
     //     //trivy , docker , docker-compose
 
     }
