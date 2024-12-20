@@ -2,9 +2,7 @@ pipeline {
     agent any
 
     // environment {
-    //     // TRIVY = TRIVY_EXE
     // //     //trivy , docker , docker-compose
-
     // }
 
     stages {
@@ -34,7 +32,7 @@ pipeline {
         stage('Scan Containers with Trivy') {
             steps {
                 script {
-                    echo "==========Scanning the running containers======="
+                    echo "==========Scanning the images ======="
                     
                     // Display Trivy version
                     bat 'trivy --version'
@@ -42,7 +40,7 @@ pipeline {
                     // List of services to scan
                     def services = ['app', 'mysql']
                     
-                    // Loop through services to scan each container
+                    // Loop through services to scan each image
                     for (service in services) {
                         // Retrieve the image ID using docker-compose and store it in a variable
                         def imageId = bat(script: "docker-compose images ${service} -q", returnStdout: true).trim()
@@ -55,7 +53,8 @@ pipeline {
                             // info it trivy is fixing vuln stuff
                             def scanResult = bat(script: "trivy -q image --light --severity CRITICAL,HIGH ${imageId_trimmed}", returnStdout: true)
                             echo "Scan result for ${service}: ${scanResult}"
-                            // Run Trivy scan for the image
+                            
+                            // Run Trivy scan containers and save report on a file for each image
                             // bat 'trivy -q image --light --severity CRITICAL,HIGH --format json -o "D:\\Desktop\\${service}_scan_report.json" ${imageId_trimmed}'
                         } else {
                             echo "No image found for service: ${service}"
@@ -68,13 +67,16 @@ pipeline {
     }
     post {
         always {
-            // Clean up Docker Compose services after the pipeline
+            // Cleaning up the workspace
             script {
+                
                 echo "=============turning OFF containers==============="
                 bat 'docker-compose down'
                 echo '=====LOG====docker-compose-exit-code2: %ERRORLEVEL%'
+                
                 echo "=============cleaning up the workspace==============="
                 bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
+                
                 echo "=============removing the .git folder==============="
                 bat 'rmdir /s /q .git'
             }
