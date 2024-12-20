@@ -47,7 +47,7 @@ pipeline {
                         // Retrieve the image ID using docker-compose and store it in a variable
                         def imageId = bat(script: "docker-compose images ${service} -q", returnStdout: true).trim()
                         def imageId_trimmed = imageId.readLines().last().trim()
-                        echo "image id ===> ${imageId_trimmed}"
+                        echo "image id ===> ${imageId}"
                         echo "image id ===> ${imageId_trimmed}"
 
                         // if (imageId) {
