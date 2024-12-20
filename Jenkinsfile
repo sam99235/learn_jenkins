@@ -49,14 +49,14 @@ pipeline {
                         def imageId_trimmed = imageId.readLines().last().trim()
 
                         if (imageId_trimmed) {
-                            echo 'Scanning image for service: ${service} ${imageId_trimmed}'
+                            echo "Scanning image for service: ${service} ${imageId_trimmed}"
                             def scanResult = bat(script: "trivy image --light --severity CRITICAL,HIGH ${imageId_trimmed}", returnStdout: true)
-                            echo 'Scan result for ${service}: ${scanResult}'
+                            echo "Scan result for ${service}: ${scanResult}"
                             // Run Trivy scan for the image
                             // bat 'trivy -q image --light --severity CRITICAL,HIGH --format json -o ${service}_scan_report.json ${imageId}'
                             // bat 'trivy -q image --light --severity CRITICAL,HIGH --format json -o ${service}_scan_report.json ${imageId}'
                         } else {
-                            echo 'No image found for service: ${service}'
+                            echo "No image found for service: ${service}"
                         }
                     }
                 }
