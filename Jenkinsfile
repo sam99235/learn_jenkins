@@ -52,7 +52,7 @@ pipeline {
                             
                             // Run Trivy scan for the image
                             bat """
-                                trivy image --severity CRITICAL,HIGH \
+                                trivy image --light --severity CRITICAL,HIGH \
                                 --format json \
                                 -o ${service}_scan_report.json ${imageId}
                             """
