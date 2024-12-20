@@ -34,9 +34,7 @@ pipeline {
 
         stage('Scan Containers with Trivy') {
             steps {
-                echo "==========building and running the containers======="
-                echo "Trivy Executable Path: ${env.TRIVY_EXE}"
-                echo "====>>${%TRIVY_EXE%}"
+                echo "==========Scanning the running containers======="
                 script {
                     def services = ['app', 'mysql'] // Define the services to scan
                     for (service in services) {
