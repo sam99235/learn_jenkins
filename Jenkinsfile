@@ -52,7 +52,7 @@ pipeline {
                 echo 'exit-code2: %ERRORLEVEL%'
                 //cleaning up the workspace
                 bat 'del /q /s * && for /d %%p in (*) do rmdir "%%p" /s /q'
-                bat 'cd ..'
+                bat 'cd /d C:\Users\Jenkins\AppData\Local\Jenkins\.jenkins\workspace'
                 bat 'cd'
                 //remove the hidden .git folder
                 //&& del /q /s .git\* && rmdir /s /q .git
