@@ -46,17 +46,17 @@ pipeline {
                     for (service in services) {
                         // Retrieve the image ID using docker-compose and store it in a variable
                         def imageId = bat(script: "docker-compose images ${service} -q", returnStdout: true).trim()
-                        echo "This is the image ID ==> ${imageId}"
-                        if (imageId) {
-                            echo 'Scanning image for service: ${service} ${imageId}'
-                            def scanResult = bat(script: "trivy image --light --severity CRITICAL,HIGH ${imageId}", returnStdout: true).trim()
-                            echo 'Scan result for ${service}: ${scanResult}'
-                            // Run Trivy scan for the image
-                            // bat 'trivy -q image --light --severity CRITICAL,HIGH --format json -o ${service}_scan_report.json ${imageId}'
-                            // bat 'trivy -q image --light --severity CRITICAL,HIGH --format json -o ${service}_scan_report.json ${imageId}'
-                        } else {
-                            echo 'No image found for service: ${service}'
-                        }
+                        bat "echo ${imageId}"
+                        // if (imageId) {
+                        //     echo 'Scanning image for service: ${service} ${imageId}'
+                        //     def scanResult = bat(script: "trivy image --light --severity CRITICAL,HIGH ${imageId}", returnStdout: true).trim()
+                        //     echo 'Scan result for ${service}: ${scanResult}'
+                        //     // Run Trivy scan for the image
+                        //     // bat 'trivy -q image --light --severity CRITICAL,HIGH --format json -o ${service}_scan_report.json ${imageId}'
+                        //     // bat 'trivy -q image --light --severity CRITICAL,HIGH --format json -o ${service}_scan_report.json ${imageId}'
+                        // } else {
+                        //     echo 'No image found for service: ${service}'
+                        // }
                     }
                 }
             }
