@@ -47,7 +47,7 @@ pipeline {
                         // Retrieve the image ID using docker-compose and store it in a variable
                         def imageId = bat(script: "docker-compose images ${service} -q", returnStdout: true).trim()
                         // Print the variable using Groovy's echo
-                        echo "This is the image ID retrieved by Groovy ==> ${imageId}"
+                        // echo "This is the image ID retrieved by Groovy ==> ${imageId}"
 
                         // Use the bat step to print the variable
                         bat(script: "echo This is the image ID retrieved by Windows batch: ${imageId}")
