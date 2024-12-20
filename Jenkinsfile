@@ -46,8 +46,8 @@ pipeline {
                     for (service in services) {
                         // Retrieve the image ID using docker-compose and store it in a variable
                         def imageId = bat(script: "docker-compose images ${service} -q", returnStdout: true).trim()
-                        def imageId = imageId.readLines().last().trim()
-                        echo "image id ===> ${imageId}"
+                        def imageId_trimmed = imageId.readLines().last().trim()
+                        echo "image id ===> ${imageId_trimmed}"
 
                         // if (imageId) {
                         //     echo 'Scanning image for service: ${service} ${imageId}'
