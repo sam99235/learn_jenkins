@@ -48,6 +48,7 @@ pipeline {
                         def imageId = bat(script: "docker-compose images ${service} -q", returnStdout: true).trim()
                         def imageId_trimmed = imageId.readLines().last().trim()
                         echo "image id ===> ${imageId_trimmed}"
+                        echo "image id ===> ${imageId_trimmed}"
 
                         // if (imageId) {
                         //     echo 'Scanning image for service: ${service} ${imageId}'
