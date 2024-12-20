@@ -21,9 +21,8 @@ pipeline {
         stage('Run Containers with Docker Compose') {
             steps {
                 // Start the services using Docker Compose
-                echo "==========building and running the containers======="
-                bat 'echo %cd%'
-                bat 'IF EXIST docker-compose.yml echo FOUND'
+                echo "==========pulling and running the containers======="
+                //bat 'IF EXIST docker-compose.yml echo FOUND'
                 bat 'docker-compose up -d'
                 echo '=====LOG====exit-code1: %ERRORLEVEL%'
 
