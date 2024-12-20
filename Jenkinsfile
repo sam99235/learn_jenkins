@@ -64,26 +64,13 @@ pipeline {
                 }
             }
         }
-        // stage('Scan Containers with Trivy') {
-        //     steps {
-        //         script {
-        //             echo "==========Scanning the running containers======="
-        //             bat 'trivy --version'
-        //             def services = ['app', 'mysql'] // defined services
-        //             for (service in services) {
-        //                 // current issue is here
-        //                 bat 'trivy image $(docker-compose images ${service} -q)' //convert --format table --severity CRITICAL,HIGH output.json"
-        //            }
-        //             echo  'exit-code3   %ERRORLEVEL%'
 
-        //         }
-        //     }
-        // }
     }
     post {
         always {
             // Clean up Docker Compose services after the pipeline
             script {
+                echo "=============turning OFF containers==============="
                 bat 'docker-compose down'
                 echo '=====LOG====docker-compose-exit-code2: %ERRORLEVEL%'
                 echo "=============cleaning up the workspace==============="
